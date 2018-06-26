@@ -20,11 +20,12 @@ public class Snake {
     }
 
     public void addSnakeBody(SnakeParts snake) {
-        snakeBody.add(snake);
+        snakeBody.add(0, snake);
     }
 
-    public void moveSnakeBody (SnakeParts snake) {
-        snakeBody.add(snake);
+    public void moveSnakeBody (Point newPos) {
+        SnakeParts snakePart = new SnakeParts(newPos.x, newPos.y);
+        snakeBody.add(0, snakePart);
         snakeBody.remove(snakeBody.size()-1);
     }
 

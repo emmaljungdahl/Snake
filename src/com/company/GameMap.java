@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 public class GameMap {
     private static Terminal terminal;
     public static final int WIDTH = 100;
-    private static final int HEIGHT = 50;
+    public static final int HEIGHT = 50;
     private static Snake snake = new Snake();
 
     public static void createGameMap() {
@@ -63,7 +63,3 @@ public class GameMap {
         }
     }
 }
-
-
-//mvoement add new snake på index[0] och ta bort sista index. om den ska växa låter man
-// den sista vara. listName.size()-1 (ger sista indexet)
