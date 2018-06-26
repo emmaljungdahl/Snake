@@ -13,7 +13,7 @@ public class Snake {
     public void addSnakeBody (Snake snake) {
         snakeBody.add(snake);
     }
-    
+
     public List<Snake> getSnakeBody() {
         return snakeBody;
     }
