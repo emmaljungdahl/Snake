@@ -1,31 +1,36 @@
 package com.company;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    private List<Snake> snakeBody;
-    private Point snakePos;
+    List<SnakeParts> snakeBody;
 
     public Snake() {
         snakeBody = new ArrayList<>();
     }
 
-    public void addSnakeBody (Snake snake) {
+    public void startSnake() {
+        for (int i = 0; i < 4; i++) {
+            SnakeParts snakePart = new SnakeParts(50, (25 + i));
+            addSnakeBody(snakePart);
+        }
+    }
+
+    public void addSnakeBody(SnakeParts snake) {
         snakeBody.add(snake);
     }
 
-    public List<Snake> getSnakeBody() {
+    public List<SnakeParts> getSnakeBody() {
         return snakeBody;
     }
+}
 
-    public void setSnakePos(Point point) {
-        // needs a loop of snakeBody for setting snakePos = point;
-    }
-
-    public List<Snake> getSnakePos() {
-        //loop to give the whole snake body's position
-        return null;
+class SnakeParts {
+    public Point point;
+    public SnakeParts(int x, int y) {
+        this.point.x = x;
+        this.point.y = y;
     }
 }
