@@ -8,7 +8,6 @@ import java.nio.charset.Charset;
 
 public class Movement {
 
-HEAD
 
     private Terminal terminal;
 
@@ -32,6 +31,5 @@ HEAD
             System.out.println(key.getCharacter() + " " + key.getKind());
         }
     }
-
-bd34b69c5e90b6dacc5bed54e7010549137f6938
+    
 }
