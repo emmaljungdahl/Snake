@@ -11,15 +11,21 @@ public class Snake {
         snakeBody = new ArrayList<>();
     }
 
-    public void startSnake() {
+    public List<SnakeParts> startSnake() {
         for (int i = 0; i < 4; i++) {
             SnakeParts snakePart = new SnakeParts(50, (25 + i));
             addSnakeBody(snakePart);
         }
+        return snakeBody;
     }
 
     public void addSnakeBody(SnakeParts snake) {
         snakeBody.add(snake);
+    }
+
+    public void moveSnakeBody (SnakeParts snake) {
+        snakeBody.add(snake);
+        snakeBody.remove(snakeBody.size()-1);
     }
 
     public List<SnakeParts> getSnakeBody() {

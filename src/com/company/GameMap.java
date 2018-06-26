@@ -9,9 +9,9 @@ import java.nio.charset.Charset;
 
 public class GameMap {
     private static Terminal terminal;
-    private static final int WIDTH = 100;
+    public static final int WIDTH = 100;
     private static final int HEIGHT = 50;
-    public static Snake snake = new Snake();
+    private static Snake snake = new Snake();
 
     public static void createGameMap() {
         terminal = TerminalFacade.createTerminal(System.in, System.out,
@@ -35,10 +35,12 @@ public class GameMap {
                 terminal.putCharacter(' ');
             }
         }
-        drawSnake(snake.getSnakeBody();
+        drawSnake(snake.startSnake());
         terminal.setCursorVisible(false);
     }
-    public static void updateGameMap(List<SnakeParts>snakeList) {
+    public static void updateGameMap() {
+        terminal.clearScreen();
+        createGameMap();
         drawSnake(snake.getSnakeBody());
     }
 
@@ -51,11 +53,13 @@ public class GameMap {
         }
     }
 
-    public static void printMessage (Point point, String message) {
+    public static void printMessage (int x, int y, String message) {
         for (int i = 0; i < message.length(); i++) {
-            terminal.moveCursor(point.x, point.y);
+            terminal.applyBackgroundColor(Terminal.Color.CYAN);
+            terminal.applyForegroundColor(Terminal.Color.BLACK);
+            terminal.moveCursor(x, y);
             terminal.putCharacter(message.charAt(i));
-            point.x++;
+            x++;
         }
     }
 }
