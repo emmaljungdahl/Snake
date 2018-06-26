@@ -20,7 +20,7 @@ public class Snake {
         return snakeBody;
     }
 
-    public void setSnakePosition(Point point) {
+    public void setSnakePos(Point point) {
         // needs a loop of snakeBody for setting snakePos = point;
     }
 
