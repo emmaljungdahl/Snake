@@ -37,7 +37,6 @@ public class Snake {
 class SnakeParts {
     public Point point;
     public SnakeParts(int x, int y) {
-        this.point.x = x;
-        this.point.y = y;
+        this.point = new Point(x,y);
     }
 }
