@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Apple {
-    private Point applePos;
+    public Point applePos;
 
     public Point spawnApple() {
         Random random = new Random();
@@ -14,3 +14,4 @@ public class Apple {
         return applePos;
     }
 }
+
