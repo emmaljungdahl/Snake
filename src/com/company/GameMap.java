@@ -3,14 +3,15 @@ package com.company;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import java.awt.*;
 import java.nio.charset.Charset;
 
 public class GameMap {
-    Terminal terminal;
+    private static Terminal terminal;
     private static final int WIDTH = 100;
     private static final int HEIGHT = 50;
 
-    public void createGameMap() {
+    public static void createGameMap() {
         terminal = TerminalFacade.createTerminal(System.in, System.out,
                 Charset.forName("UTF8"));
         terminal.enterPrivateMode();
@@ -33,5 +34,20 @@ public class GameMap {
             }
         }
         terminal.setCursorVisible(false);
+    }
+    public static void updateGameMap() {
+
+    }
+
+    public static void drawUnit() {
+
+    }
+
+    public static void printMessage (Point point, String message) {
+        for (int i = 0; i < message.length(); i++) {
+            terminal.moveCursor(point.x, point.y);
+            terminal.putCharacter(message.charAt(i));
+            point.x++;
+        }
     }
 }
