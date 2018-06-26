@@ -31,5 +31,5 @@ public class Movement {
             System.out.println(key.getCharacter() + " " + key.getKind());
         }
     }
-    
+
 }
