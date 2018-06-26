@@ -3,13 +3,15 @@ package com.company;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.awt.*;
+import java.util.List;
+import java.awt.Point;
 import java.nio.charset.Charset;
 
 public class GameMap {
     private static Terminal terminal;
     private static final int WIDTH = 100;
     private static final int HEIGHT = 50;
+    public static Snake snake = new Snake();
 
     public static void createGameMap() {
         terminal = TerminalFacade.createTerminal(System.in, System.out,
@@ -33,14 +35,20 @@ public class GameMap {
                 terminal.putCharacter(' ');
             }
         }
+        drawSnake(snake.getSnakeBody();
         terminal.setCursorVisible(false);
     }
-    public static void updateGameMap() {
-
+    public static void updateGameMap(List<SnakeParts>snakeList) {
+        drawSnake(snake.getSnakeBody());
     }
 
-    public static void drawUnit() {
-
+    public static void drawSnake(List<SnakeParts>snakeList) {
+        for (int i = 0; i < snakeList.size(); i++) {
+            Point point = snakeList.get(i).point;
+            terminal.moveCursor(point.x, point.y);
+            terminal.applyBackgroundColor(Terminal.Color.GREEN);
+            terminal.putCharacter(' ');
+        }
     }
 
     public static void printMessage (Point point, String message) {
@@ -51,3 +59,7 @@ public class GameMap {
         }
     }
 }
+
+
+//mvoement add new snake på index[0] och ta bort sista index. om den ska växa låter man
+// den sista vara. listName.size()-1 (ger sista indexet)
