@@ -1,6 +1,8 @@
 package com.company;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Apple {
@@ -15,3 +17,28 @@ public class Apple {
     }
 }
 
+boolean collision = false;
+
+public boolean collisionWall(){
+    Snake snake = new Snake();
+    snake.getSnakePos();
+    Point p = snake.getSnakeBody().get(0);
+
+    for (Snake s : snake.getSnakePos()) {
+        if()
+    }
+}
+
+public boolean collisionBody(){
+    Snake snake = new Snake();
+    snake.getSnakeBody();
+
+    for ()
+
+}
+
+public boolean collisionApple(){
+    Apple apple = new Apple();
+    applePos.getX();
+    applePos.getY();
+}
