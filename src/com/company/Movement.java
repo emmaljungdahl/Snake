@@ -10,7 +10,6 @@ public class Movement  {
     public boolean movement(Terminal terminal, Snake snake) {
 
         Collision col = new Collision();
-        boolean appleCol = false;
 
         while (true) {
 
