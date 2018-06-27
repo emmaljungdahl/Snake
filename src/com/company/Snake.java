@@ -11,15 +11,22 @@ public class Snake {
         snakeBody = new ArrayList<>();
     }
 
-    public void startSnake() {
+    public List<SnakeParts> startSnake() {
         for (int i = 0; i < 4; i++) {
-            SnakeParts snakePart = new SnakeParts(50, (25 + i));
+            SnakeParts snakePart = new SnakeParts(50, (20 - i));
             addSnakeBody(snakePart);
         }
+        return snakeBody;
     }
 
     public void addSnakeBody(SnakeParts snake) {
-        snakeBody.add(snake);
+        snakeBody.add(0, snake);
+    }
+
+    public void moveSnakeBody (Point newPos) {
+        SnakeParts snakePart = new SnakeParts(newPos.x, newPos.y);
+        snakeBody.add(0, snakePart);
+        snakeBody.remove(snakeBody.size()-1);
     }
 
     public List<SnakeParts> getSnakeBody() {
@@ -30,7 +37,6 @@ public class Snake {
 class SnakeParts {
     public Point point;
     public SnakeParts(int x, int y) {
-        this.point.x = x;
-        this.point.y = y;
+        this.point = new Point(x,y);
     }
 }
