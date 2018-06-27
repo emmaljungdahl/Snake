@@ -35,7 +35,6 @@ public class GameMap {
                 terminal.putCharacter(' ');
             }
         }
-        drawSnake(snake.getSnakeBody());
         drawSnake(snake.startSnake());
         drawApple(Apple.spawnApple());
 
