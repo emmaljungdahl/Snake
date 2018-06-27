@@ -1,5 +1,7 @@
 package com.company;
 
+import com.googlecode.lanterna.terminal.Terminal;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class Snake {
         snakeBody.add(0, snake);
     }
 
-    public void moveSnakeBody (Point newPos) {
+    public boolean moveSnakeBody (Point newPos, Snake snake) {
         SnakeParts snakePart = new SnakeParts(newPos.x, newPos.y);
         snakeBody.add(0, snakePart);
         Collision col = new Collision();
@@ -31,6 +33,14 @@ public class Snake {
         boolean appleCol = col.collisionApple(this);
         if (!appleCol) {
             snakeBody.remove(snakeBody.size() - 1);
+        }
+        boolean colCheckBody = col.collisionBody(snake);
+        boolean colCheckWall = col.collisionWall(snake);
+
+        if (colCheckBody || colCheckWall) {
+            return true;
+        } else {
+            return false;
         }
     }
 
