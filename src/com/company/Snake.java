@@ -13,7 +13,7 @@ public class Snake {
 
     public List<SnakeParts> startSnake() {
         for (int i = 0; i < 4; i++) {
-            SnakeParts snakePart = new SnakeParts(50, (25 + i));
+            SnakeParts snakePart = new SnakeParts(50, (20 - i));
             addSnakeBody(snakePart);
         }
         return snakeBody;

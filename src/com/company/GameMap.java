@@ -36,16 +36,23 @@ public class GameMap {
             }
         }
         drawSnake(snake.startSnake());
+        drawApple(Apple.spawnApple());
         terminal.setCursorVisible(false);
     }
     public static void updateGameMap() {
         terminal.clearScreen();
         createGameMap();
         drawSnake(snake.getSnakeBody());
+        drawApple(Apple.applePos);
     }
 
     public static void drawSnake(List<SnakeParts>snakeList) {
-        for (int i = 0; i < snakeList.size(); i++) {
+        Point head = snakeList.get(0).point;
+        terminal.moveCursor(head.x, head.y);
+        terminal.applyBackgroundColor(Terminal.Color.BLUE);
+        terminal.putCharacter(' ');
+
+        for (int i = 1; i < snakeList.size(); i++) {
             Point point = snakeList.get(i).point;
             terminal.moveCursor(point.x, point.y);
             terminal.applyBackgroundColor(Terminal.Color.GREEN);
@@ -61,5 +68,11 @@ public class GameMap {
             terminal.putCharacter(message.charAt(i));
             x++;
         }
+    }
+
+    public static void drawApple(Point applePos) {
+        terminal.moveCursor(applePos.x, applePos.y);
+        terminal.applyBackgroundColor(Terminal.Color.RED);
+        terminal.putCharacter(' ');
     }
 }
