@@ -26,7 +26,12 @@ public class Snake {
     public void moveSnakeBody (Point newPos) {
         SnakeParts snakePart = new SnakeParts(newPos.x, newPos.y);
         snakeBody.add(0, snakePart);
-        snakeBody.remove(snakeBody.size()-1);
+        Collision col = new Collision();
+
+        boolean appleCol = col.collisionApple(this);
+        if (!appleCol) {
+            snakeBody.remove(snakeBody.size() - 1);
+        }
     }
 
     public List<SnakeParts> getSnakeBody() {

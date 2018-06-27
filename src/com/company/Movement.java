@@ -10,6 +10,8 @@ public class Movement  {
     public boolean movement(Terminal terminal, Snake snake) {
 
         Collision col = new Collision();
+        boolean appleCol = false;
+
         while (true) {
 
             Key key;
@@ -21,7 +23,6 @@ public class Movement  {
                 }
                 key = terminal.readInput();
             } while (key == null);
-
 
             Point head = snake.getSnakeBody().get(0).point;
 
@@ -43,7 +44,7 @@ public class Movement  {
                     snake.moveSnakeBody(newPos);
                     break;
             }
-            col.collisionApple(snake);
+
             GameMap.updateGameMap(terminal, snake);
 
             boolean colCheckBody = col.collisionBody(snake);
@@ -51,6 +52,8 @@ public class Movement  {
 
             if (colCheckBody || colCheckWall) {
                 return true;
+            } else {
+                return false;
             }
         }
     }
@@ -74,27 +77,23 @@ class Collision {
         Point head = snake.getSnakeBody().get(0).point;
 
         for (int i = 1; i < snake.getSnakeBody().size(); i++) {
-            if (snake.getSnakeBody().get(i).point == head) {
+            if (snake.getSnakeBody().get(i).point.x == head.x && snake.getSnakeBody().get(i).point.y == head.y) {
                 collision = true;
             }
         }
         return collision;
     }
 
-    public void collisionApple(Snake snake) {
+    public boolean collisionApple(Snake snake) {
         Point head = snake.getSnakeBody().get(0).point;
 
-        if (Apple.applePos == head) {
-            collision = true;
-        }
-        if (collision) {
+        if (Apple.applePos.x == head.x && Apple.applePos.y == head.y) {
             Apple.spawnApple();
-            SnakeParts snakePart = new SnakeParts(head.x, head.y);
-            snake.addSnakeBody(snakePart);
-
+            return collision = true;
+        } else {
+            return false;
         }
     }
-
 }
 
 
