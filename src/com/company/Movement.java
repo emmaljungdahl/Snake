@@ -26,10 +26,10 @@ public class Movement {
                     e.printStackTrace();
                 }
                 key = terminal.readInput();
-            }  while (key == null);
+            } while (key == null);
 
             System.out.println(key.getCharacter() + " " + key.getKind());
         }
     }
-    
 }
+

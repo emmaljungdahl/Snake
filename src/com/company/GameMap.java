@@ -35,7 +35,7 @@ public class GameMap {
                 terminal.putCharacter(' ');
             }
         }
-        drawSnake(snake.getSnakeBody();
+        drawSnake(snake.getSnakeBody());
         terminal.setCursorVisible(false);
     }
     public static void updateGameMap(List<SnakeParts>snakeList) {
