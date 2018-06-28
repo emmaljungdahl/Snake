@@ -24,9 +24,9 @@ public class Main {
         GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2, "-START SNAKE-");
 
         while (!gameOver) {
-           gameOver = move.movement(terminal, snake);
-        }
 
+           gameOver = move.snakeMovementLoop(terminal, snake);
+        }
         GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2,  "-GAME OVER-");
     }
 }

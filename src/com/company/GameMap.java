@@ -1,11 +1,9 @@
 package com.company;
 
-import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.util.List;
 import java.awt.Point;
-import java.nio.charset.Charset;
 
 public class GameMap {
     public static final int WIDTH = 60;
@@ -40,7 +38,7 @@ public class GameMap {
         drawApple(terminal, Apple.applePos);
     }
 
-    public static void drawSnake(Terminal terminal, List<SnakeParts>snakeList) {
+    public static void drawSnake(Terminal terminal, List<SnakePart>snakeList) {
         Point head = snakeList.get(0).point;
         terminal.moveCursor(head.x, head.y);
         terminal.applyBackgroundColor(Terminal.Color.BLUE);

@@ -1,37 +1,36 @@
 package com.company;
 
-import com.googlecode.lanterna.terminal.Terminal;
-
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    List<SnakeParts> snakeBody;
+    List<SnakePart> snakeBody;
 
     public Snake() {
         snakeBody = new ArrayList<>();
     }
 
-    public List<SnakeParts> startSnake() {
+    public List<SnakePart> startSnake() {
         for (int i = 0; i < 4; i++) {
-            SnakeParts snakePart = new SnakeParts(GameMap.WIDTH / 2, (GameMap.HEIGHT / 2 - i));
-            addSnakeBody(snakePart);
+            SnakePart snakePart = new SnakePart(GameMap.WIDTH / 2, (GameMap.HEIGHT / 2 - i));
+            addSnakeBodyParts(snakePart);
         }
         return snakeBody;
     }
 
-    public void addSnakeBody(SnakeParts snake) {
+    public void addSnakeBodyParts(SnakePart snake) {
         snakeBody.add(0, snake);
     }
 
-    public boolean moveSnakeBody (Point newPos, Snake snake) {
-        SnakeParts snakePart = new SnakeParts(newPos.x, newPos.y);
+    public boolean moveSnakeAndCheckCollision(Point newPos, Snake snake) {
+        SnakePart snakePart = new SnakePart(newPos.x, newPos.y);
         snakeBody.add(0, snakePart);
         Collision col = new Collision();
 
-        boolean appleCol = col.collisionApple(this);
-        if (!appleCol) {
+        //If there's no apple collision, move normally by adding new head and removing last bodypart.
+        boolean isAppleFound = col.collisionApple(this);
+        if (!isAppleFound) {
             snakeBody.remove(snakeBody.size() - 1);
         }
         boolean colCheckBody = col.collisionBody(snake);
@@ -44,14 +43,14 @@ public class Snake {
         }
     }
 
-    public List<SnakeParts> getSnakeBody() {
+    public List<SnakePart> getSnakeBody() {
         return snakeBody;
     }
 }
 
-class SnakeParts {
+class SnakePart {
     public Point point;
-    public SnakeParts(int x, int y) {
+    public SnakePart(int x, int y) {
         this.point = new Point(x,y);
     }
 }

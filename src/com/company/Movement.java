@@ -11,150 +11,106 @@ public class Movement {
     private boolean keyDown = false;
     private boolean keyRight = false;
     private boolean keyLeft = false;
-    private boolean collision = false;
+    private boolean isCollision = false;
+    private int counterForSnakeUpdate = 0;
+    private final int SNAKE_UPDATE_THRESHOLD = 25;
 
-    public boolean movement(Terminal terminal, Snake snake) {
+    public boolean snakeMovementLoop(Terminal terminal, Snake snake) {
 
-        do {
+        while (!isCollision) {
             Key input = keyPress(terminal);
-            direction(input);
-
-            collision = moveOnKey(terminal, snake);
-        }while (!collision);
-
-            return collision;
-        }
-
-
-        private boolean moveOnKey (Terminal terminal, Snake snake){
-            boolean collision = false;
-            Point head = snake.getSnakeBody().get(0).point;
-            Point newPos;
-
-            while (!collision) {
-                if (keyUp) {
-                    boolean canMove = counter();
-                    if (canMove) {
-                        newPos = new Point(head.x, (head.y -= 1));
-                        collision = snake.moveSnakeBody(newPos, snake);
-                        GameMap.updateGameMap(terminal, snake);
-                    }
-                } else if (keyDown) {
-                    boolean canMove = counter();
-                    if (canMove) {
-                        newPos = new Point(head.x, (head.y += 1));
-                        collision = snake.moveSnakeBody(newPos, snake);
-                        GameMap.updateGameMap(terminal, snake);
-                    }
-                } else if (keyRight) {
-                    boolean canMove = counter();
-                    if (canMove) {
-                        newPos = new Point((head.x += 1), head.y);
-                        collision = snake.moveSnakeBody(newPos, snake);
-                        GameMap.updateGameMap(terminal, snake);
-                    }
-                } else if (keyLeft) {
-                    boolean canMove = counter();
-                    if (canMove) {
-                        newPos = new Point((head.x -= 1), head.y);
-                        collision = snake.moveSnakeBody(newPos, snake);
-                        GameMap.updateGameMap(terminal, snake);
-                    }
-                }
+            updateDirectionStatus(input);
+            boolean isAllowedToUpdate = snakeUpdateDelay();
+            if (isAllowedToUpdate) {
+                isCollision = moveSnakeInDirection(terminal, snake);
             }
-
-            return collision;
-        }
-
-
-        private Key keyPress (Terminal terminal){
-            Key key;
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return key = terminal.readInput();
-        }
-
-        private void direction (Key key){
-
-            if (key != null) {
-                switch (key.getKind()) {
-                    case ArrowDown:
-                        keyUp = false;
-                        keyDown = true;
-                        keyRight = false;
-                        keyLeft = false;
-                    case ArrowUp:
-                        keyUp = true;
-                        keyDown = false;
-                        keyRight = false;
-                        keyLeft = false;
-                        break;
-                    case ArrowRight:
-                        keyUp = false;
-                        keyDown = false;
-                        keyRight = true;
-                        keyLeft = false;
-                        break;
-                    case ArrowLeft:
-                        keyUp = false;
-                        keyDown = false;
-                        keyRight = false;
-                        keyLeft = true;
-                        break;
-                }
+            if (input != null) {
+                System.out.println(input);
+                System.out.println(keyUp + " " + keyDown + " " + keyRight + " " + keyLeft);
             }
         }
-
-        private boolean counter () {
-            boolean canMove = false;
-            int counter = 0;
-            for (int i = 0; i <= 30; i++) {
-                counter++;
-                if (counter == 30) {
-                    canMove = true;
-                }
-            }
-            return canMove;
-        }
+        return isCollision;
     }
 
 
-    class Collision {
-        private boolean collision = false;
+    private boolean moveSnakeInDirection(Terminal terminal, Snake snake) {
+        Point head = snake.getSnakeBody().get(0).point;
+        Point newPos;
 
-        public boolean collisionWall(Snake snake) {
-            Point p = snake.getSnakeBody().get(0).point;
-
-            if (p.x > GameMap.WIDTH - 1 || p.x < 1) {
-                collision = true;
-            } else if (p.y > GameMap.HEIGHT - 1 || p.y < 1) {
-                collision = true;
-            }
-            return collision;
+        if (keyUp) {
+            newPos = new Point(head.x, head.y - 1);
+        } else if (keyDown) {
+            newPos = new Point(head.x, head.y + 1);
+        } else if (keyRight) {
+            newPos = new Point(head.x + 1, head.y);
+        } else if (keyLeft) {
+            newPos = new Point(head.x - 1, head.y);
+        }
+        // start of game, not moving in any direction
+        else {
+            return false;
         }
 
-        public boolean collisionBody(Snake snake) {
-            Point head = snake.getSnakeBody().get(0).point;
+        isCollision = snake.moveSnakeAndCheckCollision(newPos, snake);
+        GameMap.updateGameMap(terminal, snake);
 
-            for (int i = 1; i < snake.getSnakeBody().size(); i++) {
-                if (snake.getSnakeBody().get(i).point.x == head.x && snake.getSnakeBody().get(i).point.y == head.y) {
-                    collision = true;
-                }
-            }
-            return collision;
+        return isCollision;
+    }
+
+
+    private Key keyPress(Terminal terminal) {
+
+        // If no key is pressed null will be returned.
+        Key key = null;
+        key = terminal.readInput();
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return key;
+    }
 
-        public boolean collisionApple(Snake snake) {
-            Point head = snake.getSnakeBody().get(0).point;
+    private void updateDirectionStatus(Key key) {
 
-            if (Apple.applePos.x == head.x && Apple.applePos.y == head.y) {
-                Apple.spawnApple();
-                return collision = true;
-            } else {
-                return false;
+        if (key != null) {
+            switch (key.getKind()) {
+                case ArrowDown:
+                    keyUp = false;
+                    keyDown = true;
+                    keyRight = false;
+                    keyLeft = false;
+                    break;
+                case ArrowUp:
+                    keyUp = true;
+                    keyDown = false;
+                    keyRight = false;
+                    keyLeft = false;
+                    break;
+                case ArrowRight:
+                    keyUp = false;
+                    keyDown = false;
+                    keyRight = true;
+                    keyLeft = false;
+                    break;
+                case ArrowLeft:
+                    keyUp = false;
+                    keyDown = false;
+                    keyRight = false;
+                    keyLeft = true;
+                    break;
             }
         }
     }
+
+    private boolean snakeUpdateDelay() {
+        if (counterForSnakeUpdate == SNAKE_UPDATE_THRESHOLD) {
+            counterForSnakeUpdate = 0;
+            return true;
+        }
+        counterForSnakeUpdate++;
+        return false;
+    }
+}
+
+
