@@ -11,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
 
         boolean gameOver = false;
-        boolean restart = false;
 
         Movement move = new Movement();
         Snake snake = new Snake();
@@ -19,17 +18,25 @@ public class Main {
         Terminal terminal = TerminalFacade.createTerminal(System.in, System.out, Charset.forName("UTF8"));
         terminal.enterPrivateMode();
 
-        while (!restart) {
-            GameMap.createGameMap(terminal);
-            GameMap.drawSnake(terminal, snake.startSnake());
-            GameMap.drawApple(terminal, Apple.spawnApple());
-            GameMap.printMessage(terminal, GameMap.WIDTH - 35, GameMap.HEIGHT / 2, "-START SNAKE-");
+        GameMap.createGameMap(terminal);
+        GameMap.drawSnake(terminal, snake.startSnake());
+        GameMap.drawApple(terminal, Apple.spawnApple());
+        GameMap.printMessage(terminal, GameMap.WIDTH - 35, GameMap.HEIGHT / 2, "-START SNAKE-");
 
-            while (!gameOver) {
-                gameOver = move.snakeMovementLoop(terminal, snake);
-            }
-            GameMap.printMessage(terminal, GameMap.WIDTH - 35, GameMap.HEIGHT / 2, "-GAME OVER-");
-            restart = move.restartGame(terminal);
+        while (!gameOver) {
+            gameOver = move.snakeMovementLoop(terminal, snake);
         }
+
+        MP3Player sound = new MP3Player();
+        sound.play("sad_trombone.mp3");
+        GameMap.printMessage(terminal, GameMap.WIDTH - 35, GameMap.HEIGHT / 2, "-GAME OVER-");
+
+        //Sleep to play the whole gameOver-sound
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }
