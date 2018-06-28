@@ -5,6 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 import java.nio.charset.Charset;
 
+
 public class Main {
 
     public static void main(String[] args) {
@@ -13,9 +14,7 @@ public class Main {
 
         boolean gameOver = false;
 
-
-        Terminal terminal = TerminalFacade.createTerminal(System.in, System.out,
-                Charset.forName("UTF8"));
+        Terminal terminal = TerminalFacade.createTerminal(System.in, System.out, Charset.forName("UTF8"));
         terminal.enterPrivateMode();
 
         GameMap.createGameMap(terminal);
@@ -24,9 +23,9 @@ public class Main {
         GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2, "-START SNAKE-");
 
         while (!gameOver) {
-
-           gameOver = move.snakeMovementLoop(terminal, snake);
+            gameOver = move.snakeMovementLoop(terminal, snake);
         }
-        GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2,  "-GAME OVER-");
+        GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2, "-GAME OVER-");
+
     }
 }

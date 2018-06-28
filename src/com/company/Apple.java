@@ -8,8 +8,8 @@ public class Apple {
 
     public static Point spawnApple() {
         Random random = new Random();
-        int x = random.nextInt((GameMap.WIDTH-3) - 3);
-        int y = random.nextInt((GameMap.HEIGHT-3) - 3);
+        int x = random.nextInt(GameMap.WIDTH - 2) + 1;
+        int y = random.nextInt(GameMap.HEIGHT - 2) + 1;
         applePos = new Point(x, y);
         return applePos;
     }

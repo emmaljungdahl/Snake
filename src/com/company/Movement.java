@@ -60,7 +60,6 @@ public class Movement {
 
     private Key keyPress(Terminal terminal) {
 
-        // If no key is pressed null will be returned.
         Key key = null;
         key = terminal.readInput();
         try {
@@ -104,6 +103,7 @@ public class Movement {
     }
 
     private boolean snakeUpdateDelay() {
+        //Method for setting the automated movement speed for the snake
         if (counterForSnakeUpdate == SNAKE_UPDATE_THRESHOLD) {
             counterForSnakeUpdate = 0;
             return true;

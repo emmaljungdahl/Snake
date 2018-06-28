@@ -11,18 +11,18 @@ public class GameMap {
 
     public static void createGameMap(Terminal terminal) {
 
-        int[] borderVertical = new int[]{0,WIDTH};
-        int[] borderHorizontal = new int[]{0,HEIGHT};
+        int[] borderVertical = new int[]{0, WIDTH};
+        int[] borderHorizontal = new int[]{0, HEIGHT};
 
         terminal.applyBackgroundColor(Terminal.Color.CYAN);
 
-        for(int v : borderVertical){
+        for (int v : borderVertical) {
             for (int i = 0; i < HEIGHT; i++) {
                 terminal.moveCursor(v, i);
                 terminal.putCharacter(' ');
             }
         }
-        for(int h : borderHorizontal){
+        for (int h : borderHorizontal) {
             for (int i = 0; i < WIDTH; i++) {
                 terminal.moveCursor(i, h);
                 terminal.putCharacter(' ');
@@ -38,7 +38,7 @@ public class GameMap {
         drawApple(terminal, Apple.applePos);
     }
 
-    public static void drawSnake(Terminal terminal, List<SnakePart>snakeList) {
+    public static void drawSnake(Terminal terminal, List<SnakePart> snakeList) {
         Point head = snakeList.get(0).point;
         terminal.moveCursor(head.x, head.y);
         terminal.applyBackgroundColor(Terminal.Color.BLUE);
@@ -52,7 +52,7 @@ public class GameMap {
         }
     }
 
-    public static void printMessage (Terminal terminal, int x, int y, String message) {
+    public static void printMessage(Terminal terminal, int x, int y, String message) {
         for (int i = 0; i < message.length(); i++) {
             terminal.applyBackgroundColor(Terminal.Color.CYAN);
             terminal.applyForegroundColor(Terminal.Color.BLACK);
