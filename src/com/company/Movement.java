@@ -107,22 +107,6 @@ public class Movement {
         counterForSnakeUpdate++;
         return false;
     }
-
-    public boolean restartGame(Terminal terminal) {
-        boolean isKeyPressed = false;
-        while (!isKeyPressed) {
-            Key key = terminal.readInput();
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (key != null) {
-                isKeyPressed = true;
-            }
-        }
-        return true;
-    }
 }
 
 
