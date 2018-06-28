@@ -1,0 +1,39 @@
+package com.company;
+
+import java.awt.*;
+
+public class Collision {
+    private boolean collision = false;
+
+    public boolean collisionWall(Snake snake) {
+        Point p = snake.getSnakeBody().get(0).point;
+
+        if (p.x > GameMap.WIDTH - 1 || p.x < 1) {
+            collision = true;
+        } else if (p.y > GameMap.HEIGHT - 1 || p.y < 1) {
+            collision = true;
+        }
+        return collision;
+    }
+
+    public boolean collisionBody(Snake snake) {
+        Point head = snake.getSnakeBody().get(0).point;
+
+        for (int i = 1; i < snake.getSnakeBody().size(); i++) {
+            if (snake.getSnakeBody().get(i).point.x == head.x && snake.getSnakeBody().get(i).point.y == head.y) {
+                collision = true;
+            }
+        }
+        return collision;
+    }
+
+    public boolean collisionApple(Snake snake) {
+        Point head = snake.getSnakeBody().get(0).point;
+        if (Apple.applePos.x == head.x && Apple.applePos.y == head.y) {
+            Apple.spawnApple();
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

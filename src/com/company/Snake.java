@@ -5,38 +5,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    List<SnakeParts> snakeBody;
+    List<SnakePart> snakeBody;
 
     public Snake() {
         snakeBody = new ArrayList<>();
     }
 
-    public List<SnakeParts> startSnake() {
+    public List<SnakePart> startSnake() {
         for (int i = 0; i < 4; i++) {
-            SnakeParts snakePart = new SnakeParts(50, (20 - i));
-            addSnakeBody(snakePart);
+            SnakePart snakePart = new SnakePart(GameMap.WIDTH / 2, (GameMap.HEIGHT / 2 - i));
+            addSnakeBodyParts(snakePart);
         }
         return snakeBody;
     }
 
-    public void addSnakeBody(SnakeParts snake) {
+    public void addSnakeBodyParts(SnakePart snake) {
         snakeBody.add(0, snake);
     }
 
-    public void moveSnakeBody (Point newPos) {
-        SnakeParts snakePart = new SnakeParts(newPos.x, newPos.y);
+    public boolean moveSnakeAndCheckCollision(Point newPos, Snake snake) {
+        SnakePart snakePart = new SnakePart(newPos.x, newPos.y);
         snakeBody.add(0, snakePart);
-        snakeBody.remove(snakeBody.size()-1);
+
+        Collision col = new Collision();
+
+        //If there's no apple collision, move normally by adding new head and removing last bodypart.
+        boolean isAppleFound = col.collisionApple(this);
+        if (!isAppleFound) {
+            snakeBody.remove(snakeBody.size() - 1);
+        }
+
+        boolean colCheckBody = col.collisionBody(snake);
+        boolean colCheckWall = col.collisionWall(snake);
+
+        if (colCheckBody || colCheckWall) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public List<SnakeParts> getSnakeBody() {
+    public List<SnakePart> getSnakeBody() {
         return snakeBody;
     }
 }
 
-class SnakeParts {
+class SnakePart {
     public Point point;
-    public SnakeParts(int x, int y) {
+    public SnakePart(int x, int y) {
         this.point = new Point(x,y);
     }
 }

@@ -1,53 +1,44 @@
 package com.company;
 
-import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.util.List;
 import java.awt.Point;
-import java.nio.charset.Charset;
 
 public class GameMap {
-    private static Terminal terminal;
-    public static final int WIDTH = 100;
-    public static final int HEIGHT = 50;
-    private static Snake snake = new Snake();
+    public static final int WIDTH = 60;
+    public static final int HEIGHT = 25;
 
-    public static void createGameMap() {
-        terminal = TerminalFacade.createTerminal(System.in, System.out,
-                Charset.forName("UTF8"));
-        terminal.enterPrivateMode();
+    public static void createGameMap(Terminal terminal) {
 
-        int[] borderVertical = new int[]{0,WIDTH};
-        int[] borderHorizontal = new int[]{0,HEIGHT};
+        int[] borderVertical = new int[]{0, WIDTH};
+        int[] borderHorizontal = new int[]{0, HEIGHT};
 
         terminal.applyBackgroundColor(Terminal.Color.CYAN);
 
-        for(int v : borderVertical){
-            for (int i = 0; i < HEIGHT; i++) {
+        for (int v : borderVertical) {
+            for (int i = 0; i <= HEIGHT; i++) {
                 terminal.moveCursor(v, i);
                 terminal.putCharacter(' ');
             }
         }
-        for(int h : borderHorizontal){
-            for (int i = 0; i < WIDTH; i++) {
+        for (int h : borderHorizontal) {
+            for (int i = 0; i <= WIDTH; i++) {
                 terminal.moveCursor(i, h);
                 terminal.putCharacter(' ');
             }
         }
-        drawSnake(snake.startSnake());
-        drawApple(Apple.spawnApple());
-
         terminal.setCursorVisible(false);
     }
-    public static void updateGameMap() {
+
+    public static void updateGameMap(Terminal terminal, Snake snake) {
         terminal.clearScreen();
-        createGameMap();
-        drawSnake(snake.getSnakeBody());
-        drawApple(Apple.applePos);
+        createGameMap(terminal);
+        drawSnake(terminal, snake.getSnakeBody());
+        drawApple(terminal, Apple.applePos);
     }
 
-    public static void drawSnake(List<SnakeParts>snakeList) {
+    public static void drawSnake(Terminal terminal, List<SnakePart> snakeList) {
         Point head = snakeList.get(0).point;
         terminal.moveCursor(head.x, head.y);
         terminal.applyBackgroundColor(Terminal.Color.BLUE);
@@ -61,7 +52,7 @@ public class GameMap {
         }
     }
 
-    public static void printMessage (int x, int y, String message) {
+    public static void printMessage(Terminal terminal, int x, int y, String message) {
         for (int i = 0; i < message.length(); i++) {
             terminal.applyBackgroundColor(Terminal.Color.CYAN);
             terminal.applyForegroundColor(Terminal.Color.BLACK);
@@ -71,7 +62,7 @@ public class GameMap {
         }
     }
 
-    public static void drawApple(Point applePos) {
+    public static void drawApple(Terminal terminal, Point applePos) {
         terminal.moveCursor(applePos.x, applePos.y);
         terminal.applyBackgroundColor(Terminal.Color.RED);
         terminal.putCharacter(' ');
