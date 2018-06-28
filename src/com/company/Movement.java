@@ -30,6 +30,12 @@ public class Movement {
     }
 
 
+    /****** Collisions ******/
+
+    public boolean collisionWall() {
+        Snake snake = new Snake();
+        Point p = snake.getSnakeBody().get(0).point;
+
     private boolean moveSnakeInDirection(Terminal terminal, Snake snake) {
         Point head = snake.getSnakeBody().get(0).point;
         Point newPos;
