@@ -9,10 +9,11 @@ import java.nio.charset.Charset;
 public class Main {
 
     public static void main(String[] args) {
-        Movement move = new Movement();
-        Snake snake = new Snake();
 
         boolean gameOver = false;
+
+        Movement move = new Movement();
+        Snake snake = new Snake();
 
         Terminal terminal = TerminalFacade.createTerminal(System.in, System.out, Charset.forName("UTF8"));
         terminal.enterPrivateMode();
@@ -20,12 +21,11 @@ public class Main {
         GameMap.createGameMap(terminal);
         GameMap.drawSnake(terminal, snake.startSnake());
         GameMap.drawApple(terminal, Apple.spawnApple());
-        GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2, "-START SNAKE-");
+        GameMap.printMessage(terminal, GameMap.WIDTH - 35, GameMap.HEIGHT / 2, "-START SNAKE-");
 
         while (!gameOver) {
             gameOver = move.snakeMovementLoop(terminal, snake);
         }
-        GameMap.printMessage(terminal, GameMap.WIDTH / 2, GameMap.HEIGHT / 2, "-GAME OVER-");
-
+        GameMap.printMessage(terminal, GameMap.WIDTH - 35, GameMap.HEIGHT / 2, "-GAME OVER-");
     }
 }

@@ -30,6 +30,7 @@ public class Collision {
     public boolean collisionApple(Snake snake) {
         Point head = snake.getSnakeBody().get(0).point;
         if (Apple.applePos.x == head.x && Apple.applePos.y == head.y) {
+            GameMap.appleEatenCounter++;
             Apple.spawnApple();
             return true;
         } else {

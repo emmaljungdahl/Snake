@@ -11,6 +11,7 @@ public class Apple {
         int x = random.nextInt(GameMap.WIDTH - 2) + 1;
         int y = random.nextInt(GameMap.HEIGHT - 2) + 1;
         applePos = new Point(x, y);
+
         return applePos;
     }
 }

@@ -14,7 +14,7 @@ public class Movement {
 
     private boolean isCollision = false;
     private int counterForSnakeUpdate = 0;
-    private final int SNAKE_UPDATE_THRESHOLD = 25;
+    private final int SNAKE_UPDATE_THRESHOLD = 15;
 
     public boolean snakeMovementLoop(Terminal terminal, Snake snake) {
 
