@@ -33,6 +33,8 @@ public class Movement {
         }
     }
 
+    /****** Collisions ******/
+
     public boolean collisionWall() {
         Snake snake = new Snake();
         Point p = snake.getSnakeBody().get(0).point;

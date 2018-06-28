@@ -76,4 +76,5 @@ public class GameMap {
         terminal.applyBackgroundColor(Terminal.Color.RED);
         terminal.putCharacter(' ');
     }
+
 }
