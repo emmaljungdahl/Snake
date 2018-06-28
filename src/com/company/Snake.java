@@ -26,6 +26,7 @@ public class Snake {
     public boolean moveSnakeAndCheckCollision(Point newPos, Snake snake) {
         SnakePart snakePart = new SnakePart(newPos.x, newPos.y);
         snakeBody.add(0, snakePart);
+
         Collision col = new Collision();
 
         //If there's no apple collision, move normally by adding new head and removing last bodypart.
@@ -33,6 +34,7 @@ public class Snake {
         if (!isAppleFound) {
             snakeBody.remove(snakeBody.size() - 1);
         }
+
         boolean colCheckBody = col.collisionBody(snake);
         boolean colCheckWall = col.collisionWall(snake);
 

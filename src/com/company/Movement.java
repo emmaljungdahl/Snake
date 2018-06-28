@@ -11,6 +11,7 @@ public class Movement {
     private boolean keyDown = false;
     private boolean keyRight = false;
     private boolean keyLeft = false;
+
     private boolean isCollision = false;
     private int counterForSnakeUpdate = 0;
     private final int SNAKE_UPDATE_THRESHOLD = 25;
@@ -23,10 +24,6 @@ public class Movement {
             boolean isAllowedToUpdate = snakeUpdateDelay();
             if (isAllowedToUpdate) {
                 isCollision = moveSnakeInDirection(terminal, snake);
-            }
-            if (input != null) {
-                System.out.println(input);
-                System.out.println(keyUp + " " + keyDown + " " + keyRight + " " + keyLeft);
             }
         }
         return isCollision;

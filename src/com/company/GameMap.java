@@ -17,13 +17,13 @@ public class GameMap {
         terminal.applyBackgroundColor(Terminal.Color.CYAN);
 
         for (int v : borderVertical) {
-            for (int i = 0; i < HEIGHT; i++) {
+            for (int i = 0; i <= HEIGHT; i++) {
                 terminal.moveCursor(v, i);
                 terminal.putCharacter(' ');
             }
         }
         for (int h : borderHorizontal) {
-            for (int i = 0; i < WIDTH; i++) {
+            for (int i = 0; i <= WIDTH; i++) {
                 terminal.moveCursor(i, h);
                 terminal.putCharacter(' ');
             }
